@@ -1,39 +1,24 @@
 var mysql = require('mysql');
-
-var result;
-
-var con = mysql.createConnection({
-    host: "127.0.0.1",
-    user: "website",
-    password: "websiteuser123$"
-});
-
-con.connect(function (err) {
-    if (err) throw err;
-    //Select all customers and return the result object:
-    Insert into main(PersonID, UserName, FavNum)
-    Values(1, 'Fred', 7)
-    con.query("SELECT * FROM main.main", function (err, result, fields) {
-        if (err) throw err;
-        console.log(result);
-    });
-});
+var http = require('http');
 
 function test() {
+    document.write("ABA")
+    var con = mysql.createConnection({
+        document.write("AB")
+        host: "127.0.0.1",
+        user: "website",
+        password: "websiteuser123$"
+    });
 
+    document.write("AAA")
     con.connect(function (err) {
+        document.write("AAAA")
         if (err) throw err;
-        //Select all customers and return the result object:
-        con.query("SELECT * FROM main.main", function (err, result, fields) {
+    //Select all customers and return the result object:
+        con.query("INSERT INTO `main`.`main` (`idmain`, `name`, `favnum`) VALUES ('3', 'fred', '9')", function (err, result, fields) {
             if (err) throw err;
-            console.log(err);
+            console.log(result);
         });
     });
-    
-    Insert into main(PersonID, UserName, FavNum)
-    Values(1, 'Fred', 7)
-    
-    
-
-
+    document.write("B")
 }
