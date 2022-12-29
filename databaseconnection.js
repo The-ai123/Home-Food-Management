@@ -38,3 +38,14 @@ app.get('/', function (req, res) {
 var server = app.listen(5000, function () {
     console.log('Server is listening at port 5000...');
 });
+
+
+con.connect(function (err) {
+    document.write("AAAA")
+    if (err) throw err;
+    //Select all customers and return the result object:
+    con.query("INSERT INTO `main`.`main` (`idmain`, `name`, `favnum`) VALUES ('3', 'fred', '9')", function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+    });
+});

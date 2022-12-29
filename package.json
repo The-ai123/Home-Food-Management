@@ -1,0 +1,24 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "description": "This is an attempt to create a database, connect to it with an outside script, and hopefully create a website that will be able to add to it.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-ai123/Database.git"
+  },
+  "author": "ada",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/The-ai123/Database/issues"
+  },
+  "homepage": "https://github.com/The-ai123/Database#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql": "^2.18.1",
+    "node": "^19.3.0"
+  }
+}
