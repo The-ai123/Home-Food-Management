@@ -13,7 +13,7 @@ function test() {
     document.write("ADA")
     var mysql = require('mysql');
     document.write("ACA")
-    con.query("INSERT INTO `main`.`main` (`idmain`, `name`, `favnum`) VALUES ('5', 'fred', '10')", function (err, result, fields) {
+    con.query("INSERT INTO `main`.`main` (`idmain`, `name`, `favnum`) VALUES ('8', 'fred', '10')", function (err, result, fields) {
         if (err) throw err;
         console.log(result);
     });

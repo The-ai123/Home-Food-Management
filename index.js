@@ -18,9 +18,11 @@ connection.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
     console.log('The solution is: ', rows[0].solution)
 })
 
-app.get('/', (req, res) => {
-    connection.query("INSERT INTO `main`.`main` (`idmain`, `name`, `favnum`) VALUES ('6', 'fred', '17')")
-    res.send('Hello World!')
+app.get('/:number/:name', (req, res) => {
+    var number = req.params.number
+    var name = req.params.name
+    connection.query("INSERT INTO `main`.`main` (`name`, `favnum`) VALUES ('" + name + "', '" + number + "')")
+    res.send('Hello World!' + number)
 })
 
 app.listen(port, () => {
