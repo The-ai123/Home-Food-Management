@@ -21,17 +21,14 @@ const connection = mysql.createConnection({
 });
 
 connection.connect()
-connection.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
-    if (err) throw err
 
-    console.log('The solution is: ', rows[0].solution)
-})
-
-app.get('/:number/:name', (req, res) => {
-    var number = req.params.number
-    var name = req.params.name
-    connection.query("INSERT INTO `main`.`main` (`name`, `favnum`) VALUES ('" + name + "', '" + number + "')")
-    res.send('Hello World!' + number)
+app.get('/:foodName/:amount', (req, res) => {
+    var foodName = req.params.foodName
+    var amount = req.params.amount
+ 
+    connection.query("UPDATE`food_inventory`.`food types` SET`Amount` = '" + amount + "' WHERE(`foodName` = '" + foodName + "');");
+    console.log('Value updated to ' + amount + " for item " + foodName);
+    res.send("Value updated to " + amount + " for item " + foodName);
 })
 
 app.get('/requestfoodlist', (req, res) => {
