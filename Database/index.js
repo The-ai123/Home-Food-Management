@@ -36,9 +36,9 @@ app.get('/:number/:name', (req, res) => {
 
 app.get('/requestfoodlist', (req, res) => {
     console.log("request for food list recieved at " + d.toTimeString())
-    connection.query("SELECT favnum FROM`main`.`main`;", function (err, result, fields) {
+    connection.query("SELECT * FROM food_inventory.`food types`;", function (err, result, fields) {
         if (err) throw err;
-        res.send("egg")
+        res.send(result)
         console.log("request for food list sent at " + d.toTimeString())
     })
 })
