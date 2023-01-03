@@ -1,26 +1,29 @@
-
 async function generateMainTable() {
+    let result = await fetch("secret.txt");
+    let ip = await result.text()
+
     //request the food table from the database server
-    let response = await fetch("http://127.0.0.1:3200/requestfoodlist");
+    const response = await fetch("http://" + ip + ":3200/requestfoodlist");
     if (response.ok) {
-        let lst = await response.json();
-        let element = document.getElementById("mainTable");
+
+        const lst = await response.json();
+        const element = document.getElementById("mainTable");
         for (i in lst) { // for every row in the food table
-            let item = lst[i];
+            const item = lst[i];
 
             //generate the html elements for the row
-            let row = document.createElement("tr");
-            let namebox = document.createElement("td");
-            let amountbox = document.createElement("td");
-            let upbox = document.createElement("td");
-            let downbox = document.createElement("td");
-            let upbutton = document.createElement("input");
-            let downbutton = document.createElement("input");
+            const row = document.createElement("tr");
+            const namebox = document.createElement("td");
+            const amountbox = document.createElement("td");
+            const upbox = document.createElement("td");
+            const upbutton = document.createElement("input");
+            const downbutton = document.createElement("input");
 
             //lable every element
             namebox.textContent = item.foodName;
             amountbox.textContent = Number(item.Amount);
             amountbox.id = item.foodName + "amountbox";
+            amountbox.style.textAlign = "center";
             upbutton.value = "\u2191";
             downbutton.value = "\u2193";
             row.value = item.foodName;
@@ -38,11 +41,10 @@ async function generateMainTable() {
 
             //assign each element to their parent
             upbox.appendChild(upbutton);
-            downbox.appendChild(downbutton);
+            upbox.appendChild(downbutton);
             row.appendChild(namebox);
             row.appendChild(amountbox);
             row.appendChild(upbox);
-            row.appendChild(downbox);
             element.appendChild(row);
 
         }
@@ -64,7 +66,7 @@ function decrease(foodName) {
     let element = document.getElementById(foodName + "amountbox");
     let current = Number(element.textContent)
     if (current - 1 < 0) {
-        alert("Can not have a negative amount");
+        //alert("Can not have a negative amount");
     } else {
         fetch('http://127.0.0.1:3200/' + foodName + '/' + (current - 1))
         element.textContent = current - 1;
