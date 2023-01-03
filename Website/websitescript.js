@@ -1,13 +1,9 @@
 
-function generateMainTable() {
+async function generateMainTable() {
     //request the food table from the database server
-    let url = new URL('http://127.0.0.1:3200/requestfoodlist')
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
-    xhr.send();
-    xhr.responseType = "json";
-    xhr.onload = function () {
-        let lst = this.response
+    let response = await fetch("http://127.0.0.1:3200/requestfoodlist");
+    if (response.ok) {
+        let lst = await response.json();
         let element = document.getElementById("mainTable");
         for (i in lst) { // for every row in the food table
             let item = lst[i];
@@ -30,7 +26,7 @@ function generateMainTable() {
             row.value = item.foodName;
 
             //add functionality to the buttons
-            upbutton.type = "button"; 
+            upbutton.type = "button";
             upbutton.addEventListener('click', () => {
                 increase(item.foodName)
             })
@@ -48,17 +44,19 @@ function generateMainTable() {
             row.appendChild(upbox);
             row.appendChild(downbox);
             element.appendChild(row);
-        }          
-    }
-    xhr.onerror = function () {
-        alert("Request failed: " + xhr.responseText);
-    };
-}
+
+        }
+    } else {
+        console.log("Did not recieve food list from database");
+        alert("Could not connect to database");
+        }              
+    }  
+
 
 function increase(foodName) {
     let element = document.getElementById(foodName + "amountbox");
     let current = Number(element.textContent)
-    updateAmount(foodName, current + 1)
+    fetch('http://127.0.0.1:3200/' + foodName + '/' + (current + 1))
     element.textContent = current + 1;
 }
 
@@ -68,9 +66,8 @@ function decrease(foodName) {
     if (current - 1 < 0) {
         alert("Can not have a negative amount");
     } else {
-        updateAmount(foodName,current-1)
+        fetch('http://127.0.0.1:3200/' + foodName + '/' + (current - 1))
         element.textContent = current - 1;
-
     }
     
 }

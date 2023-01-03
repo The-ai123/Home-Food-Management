@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Database",
+    "\\Website"
   ],
-  "SelectedNode": "\\databaseconnection.js",
+  "SelectedNode": "\\Website\\websitescript.js",
   "PreviewInSolutionExplorer": false
 }
