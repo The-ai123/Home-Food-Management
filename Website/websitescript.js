@@ -1,6 +1,6 @@
-async function generateMainTable() {
-    let result = await fetch("secret.txt");
-    let ip = await result.text()
+async function generateMain() {
+    const ipresult = await fetch("secret.txt");
+    ip = await ipresult.text()
 
     //request the food table from the database server
     const response = await fetch("http://" + ip + ":3200/requestfoodlist");
@@ -8,6 +8,8 @@ async function generateMainTable() {
 
         const lst = await response.json();
         const element = document.getElementById("mainTable");
+        const selectelement = document.getElementById("removeselector");
+        const selector = document.createElement("select");
         for (i in lst) { // for every row in the food table
             const item = lst[i];
 
@@ -22,7 +24,7 @@ async function generateMainTable() {
             //lable every element
             namebox.textContent = item.foodName;
             amountbox.textContent = Number(item.Amount);
-            amountbox.id = item.foodName + "amountbox";
+            row.id = item.foodName + "row";
             amountbox.style.textAlign = "center";
             upbutton.value = "\u2191";
             downbutton.value = "\u2193";
@@ -47,7 +49,14 @@ async function generateMainTable() {
             row.appendChild(upbox);
             element.appendChild(row);
 
+            //selector code
+            const option = document.createElement("option");
+            option.text = item.foodName;
+            option.value = item.foodName;
+            selector.appendChild(option);
+            selector.id = "selector";
         }
+        selectelement.appendChild(selector);
     } else {
         console.log("Did not recieve food list from database");
         alert("Could not connect to database");
@@ -58,7 +67,7 @@ async function generateMainTable() {
 function increase(foodName) {
     let element = document.getElementById(foodName + "amountbox");
     let current = Number(element.textContent)
-    fetch('http://127.0.0.1:3200/' + foodName + '/' + (current + 1))
+    fetch('http://' + ip + ':3200/update/' + foodName + '/' + (current + 1))
     element.textContent = current + 1;
 }
 
@@ -68,23 +77,23 @@ function decrease(foodName) {
     if (current - 1 < 0) {
         //alert("Can not have a negative amount");
     } else {
-        fetch('http://127.0.0.1:3200/' + foodName + '/' + (current - 1))
+        fetch('http://' + ip + ':3200/update/' + foodName + '/' + (current - 1))
         element.textContent = current - 1;
     }
     
 }
 
-function updateAmount(foodName, amount) {
-    let url = new URL('http://127.0.0.1:3200/' + foodName + '/' + amount);
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
-    xhr.send();
+async function remove() {
+    const selector = document.getElementById("selector");
+    const foodName = selector.value;
+    const response = await fetch("http://" + ip + ":3200/remove/" + foodName);
+    if (response == true) {
+        console.log("hooray!")
+        }else {
+            
+        }
+    }
 
-    xhr.onerror = function () {
-        alert("Request failed: " + xhr.responseText);
-    };
-}
+async function add() {
 
-function test() {
-    document.getElementById("help").innerHTML = "wow";
 }

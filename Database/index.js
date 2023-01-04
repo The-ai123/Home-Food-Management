@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 3200
-const d = new Date();
+
 
 const cors = require("cors");
 
@@ -22,24 +22,44 @@ const connection = mysql.createConnection({
 
 connection.connect()
 
-app.get('/:foodName/:amount', (req, res) => {
+app.get('/update/:foodName/:amount', (req, res) => {
     var foodName = req.params.foodName
     var amount = req.params.amount
  
     connection.query("UPDATE`food_inventory`.`food types` SET`Amount` = '" + amount + "' WHERE(`foodName` = '" + foodName + "');");
-    console.log('Value updated to ' + amount + " for item " + foodName);
+    console.log('Value updated to ' + amount + " for item " + foodName + " at " + stringTime());
     res.send("Value updated to " + amount + " for item " + foodName);
 })
 
 app.get('/requestfoodlist', (req, res) => {
-    console.log("request for food list recieved at " + d.toTimeString())
+    console.log("Request for food list recieved at " + stringTime())
     connection.query("SELECT * FROM food_inventory.`food types`;", function (err, result, fields) {
         if (err) throw err;
         res.send(result)
-        console.log("request for food list sent at " + d.toTimeString())
     })
 })
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+app.get('/remove/:foodName', (req, res) => {
+    var foodName = req.params.foodName;
+    connection.query("SELECT count(1) FROM food_inventory.`food types` Where foodName = '" + foodName + "'", function (err, result, fields){
+        if (result[0]["count(1)"] == 1) {
+            connection.query("DELETE FROM `food_inventory`.`food types` WHERE (`foodName` = '" + foodName + "')");
+            res.send(true);
+            console.log("Removed " + foodName + " from storage at " + stringTime());
+        } else {
+            res.send(false);
+            console.log("Can not remove what was not already there");
+        }
+    });
+    //DELETE FROM`food_inventory`.`food types` WHERE(`foodName` = 'fake');
+
 })
+
+app.listen(port, () => {
+    console.log(`App listening on port ${port}`)
+})
+
+function stringTime() {
+    let d = new Date();
+    return d.toLocaleDateString() + " " + d.toLocaleTimeString();
+}

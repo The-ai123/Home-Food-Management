@@ -11,14 +11,22 @@
         td, th {
             border: 1px solid #000f;
         }
-
     </style>
     
 </head>
-<body onload="generateMainTable()">
+<body onload="generateMain()">
     <main>
         <script src="websitescript.js"></script>
         <h1 id="help">Food Supplies</h1>
+        <p>                 
+            Add a new food
+            <input type="text" width="80" />
+            <input type="submit" value="Submit" />
+        </p>
+        <p >
+            Remove <content id="removeselector"></content>
+            <input type="submit" value="Submit" onclick="remove()"/>
+        </p>
         <table >
             <tbody id="mainTable">
                 <tr>
