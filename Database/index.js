@@ -51,9 +51,26 @@ app.get('/remove/:foodName', (req, res) => {
             console.log("Can not remove what was not already there");
         }
     });
-    //DELETE FROM`food_inventory`.`food types` WHERE(`foodName` = 'fake');
-
 })
+
+app.get('/add/:foodName', (req, res) => {
+    var foodName = req.params.foodName;
+    connection.query("SELECT count(1) FROM food_inventory.`food types` Where foodName = '" + foodName + "'", function (err, result, fields) {
+        if (result[0]["count(1)"] == 0) {
+            connection.query("INSERT INTO `food_inventory`.`food types` (`foodName`, `Amount`) VALUES ('" + foodName + "', '0');");
+            res.send(true);
+            console.log("Added " + foodName + " to storage at " + stringTime());
+        } else {
+            res.send(false);
+            console.log("Tried to add already existing food");
+        }
+    });
+})
+
+app.get('/check', (req, res) => {
+
+});
+
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
