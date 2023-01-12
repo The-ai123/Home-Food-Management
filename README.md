@@ -7,4 +7,4 @@ It had the original goal of simply hosting a database, and have a website intera
 
 It ended with a mysql server and database that stored all the food/items my family has in stock, an express.js server that handled http requests with the mysql server, and a website server that hosted the html for the website and its scripts that allowed for its functionality. That being it showed a table of our items, allowed for adding/removing/updating the values from the website, and automatically generating a shopping list
 
-I documented my progress and thoughts throughout its creation in a document included called 'Notes.pdf' and I have a video of its functionality here https://youtu.be/xksPe2qcbV8
+I documented my progress and thoughts throughout its creation in a document included called 'Documention_notes for major project.pdf' and I have a video of its functionality here https://youtu.be/xksPe2qcbV8
