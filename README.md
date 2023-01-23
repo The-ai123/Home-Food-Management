@@ -1,4 +1,4 @@
-# Database
+# Shopping-List-Database-Website
 This was my first major project that I have on github.
 
 Note:This only contains code for the website server and the express server, it wont function on its own because it relies on a locally hosted database and a 'secret' document that has my ip which are not included on github
