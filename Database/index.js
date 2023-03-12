@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 3200
+const port = 3300
 
 
 const cors = require("cors");
@@ -22,13 +22,22 @@ const connection = mysql.createConnection({
 
 connection.connect()
 
-app.get('/update/:foodName/:amount', (req, res) => {
+app.get('/updateamount/:foodName/:amount', (req, res) => {
     var foodName = req.params.foodName
     var amount = req.params.amount
  
     connection.query("UPDATE`food_inventory`.`food types` SET`Amount` = '" + amount + "' WHERE(`foodName` = '" + foodName + "');");
-    console.log('Value updated to ' + amount + " for item " + foodName + " at " + stringTime());
+    console.log('Amount updated to ' + amount + " for item " + foodName + " at " + stringTime());
     res.send("Value updated to " + amount + " for item " + foodName);
+})
+
+app.get('/updatetarget/:foodName/:amount', (req, res) => {
+    var foodName = req.params.foodName
+    var amount = req.params.amount
+
+    connection.query("UPDATE`food_inventory`.`food types` SET`Target` = '" + amount + "' WHERE(`foodName` = '" + foodName + "');");
+    console.log('Target value updated to ' + amount + " for item " + foodName + " at " + stringTime());
+    res.send("Target value  updated to " + amount + " for item " + foodName);
 })
 
 app.get('/requestfoodlist', (req, res) => {

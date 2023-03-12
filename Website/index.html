@@ -18,6 +18,7 @@
     <main>
         <script src="websitescript.js"></script>
         <h1 id="help">Food Supplies</h1>
+        <h2><a href="shoppinglist.html"> Shopping List </a> </h2>
         <p>                 
             Add a new food
             <input type="text" width="80" id="newfoodinput"/>
@@ -27,13 +28,16 @@
             Remove <content id="removeselector"></content>
             <input type="submit" value="Submit" onclick="remove()"/>
         </p>
-        <table >
+        <table id="tablebody">
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>+/-</th>
+                <th>Target</th>
+                <th>+/-</th>
+            </tr>
             <tbody id="mainTable">
-                <tr>
-                    <th>Name</th>
-                    <th>Amount</th>
-                    <th>+/-</th>
-                </tr>
+
             </tbody>
         </table>
     </main>
